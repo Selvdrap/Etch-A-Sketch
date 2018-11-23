@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(to left, #232526, #414345);
+}
+
+.wrapper {
+  height: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ipad-container {
+  height: 880px;
+  max-height: 100%;
+  width: 640px;
+  max-width: 100%;
+  border: double 3px transparent;
+  border-radius: 25px;
+  background-image: linear-gradient(black, black), radial-gradient(circle at center, #a399b2,#444,#a399b2, #444);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.ipad-screen {
+  padding: 50px 25px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.ipad-screen__content {
+  background-color: #2c3e50;
+  height: 100%;
+  border: 2px solid #363636;
+  border-radius: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.cell {
+  flex: 0 0 auto;
+  border: 1px solid #a399b2;
+  position: relative;
+  z-index: 1;
+}
+
+.camera {
+  background-color: #0b2874;
+  height: 8px;
+  width: 8px;
+  border: 2px solid #363636;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.home-button {
+  background-color: transparent;
+  height: 30px;
+  width: 30px;
+  border: 2px solid #3f3f3f;
+  border-radius: 50%;
+  outline: 0;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.ipad-screen-menu {
+  position: absolute;
+  bottom: -80px;
+  height: 80px;
+  width: 100%;
+  background: linear-gradient(to right, #1a252f, #2c3e50);
+  z-index: 2;
+  pointer-events: none;
+  transition: all 0.2s;
+  opacity: 0.8 ;
+}
+
+.ipad-screen-menu--active {
+  bottom: 0;
+}
