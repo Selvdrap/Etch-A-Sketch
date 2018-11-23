@@ -10,6 +10,7 @@ const colorPicker = d.querySelector('.color-picker');
 const gridRows = screen.getBoundingClientRect().height;
 const gridCols = screen.getBoundingClientRect().width;
 let cellColor = '#000';
+
 function createGrid(gridSize = 16) {
   clear();
   let cells = [...d.querySelectorAll('.cell')];
@@ -74,6 +75,19 @@ function clickPalette() {
   clear();
 }
 
+function gridClick() {
+  function getChoice() {
+    let choice = null;
+    while(choice < 9 || choice > 81) {
+      choice = prompt('Enter grid size\(From 9 to 81\):', '16');
+      if(choice == null) return null;
+    }
+    return +choice;
+  }
+  let gridSize = getChoice();
+  if(gridSize) createGrid(gridSize);
+}
+
 function removeColorPicker(e) {
   if(!colorPicker.contains(e.target) && e.target !== palette) {
     colorPicker.classList.remove('color-picker--visible');
@@ -87,18 +101,7 @@ eraser.addEventListener('click', () => {
   eraseColor();
 });
 die.addEventListener('click', () => setRandomColor());
-grid.addEventListener('click', () => {
-  function getChoice() {
-    let choice = 0;
-    while(choice < 9 || choice > 81) {
-      choice = +prompt('Enter grid size\(From 9 to 81\):', '32');
-    }
-    return choice;
-  }
-
-  let gridSize = getChoice();
-  createGrid(gridSize);
-});
+grid.addEventListener('click', gridClick);
 
 ColorPicker(
   colorPicker,
