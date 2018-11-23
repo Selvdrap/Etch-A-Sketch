@@ -1,3 +1,14 @@
+@font-face {
+  font-family: 'Courgette';
+  src: url(../fonts/Courgette-Regular.woff);
+}
+
+@font-face {
+  font-family: 'Montserrat-italic';
+  src: url(../fonts/Montserrat-Italic.woff);
+  font-style: italic;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -159,4 +170,32 @@ body {
 
 .color-picker--visible {
   display: block;
+}
+
+.author {
+  position: fixed;
+  top: 50px;
+  right: 30px;
+  color: #a399b2;
+}
+
+.author h1 {
+  font-family: 'Courgette', Arial, Helvetica, sans-serif;
+}
+
+.author h3 {
+  font-family: 'Montserrat-italic', Arial, Helvetica, sans-serif;
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .author {
+    font-size: 50%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .author {
+    display: none;
+  }
 }
