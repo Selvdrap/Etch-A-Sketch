@@ -44,6 +44,7 @@ function setRandomColor() {
     }
     return codes.join(',');
   }
+  palette.style.backgroundColor = 'transparent';
   window.colorTimer = setInterval(function(){
     cellColor = `rgb(${getRandomCodes()})`;
   }, 200);
