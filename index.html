@@ -6,6 +6,7 @@
   <title>Etch A Sketch</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">  
+  <link rel="stylesheet" href="css/themes.css">
 </head>
 <body>
   <div class="wrapper">
@@ -13,12 +14,29 @@
       <div class="ipad-screen">
           <div class="camera"></div>
           <div class="ipad-screen__content">
-            <div class="ipad-screen-menu"></div>
+            <div class="color-picker cp-fancy"></div>
+            <div class="ipad-screen-menu ipad-screen-menu--active">
+              <ul class="ipad-screen-menu__list">
+                <li class="ipad-screen-menu__item">
+                  <button class="ipad-screen-menu__btn ipad-screen-menu__btn--grid" type="button"></button>
+                </li>
+                <li class="ipad-screen-menu__item">
+                  <button class="ipad-screen-menu__btn ipad-screen-menu__btn--eraser" type="button"></button>
+                </li>
+                <li class="ipad-screen-menu__item">
+                  <button class="ipad-screen-menu__btn ipad-screen-menu__btn--palette" type="button"></button>
+                </li>
+                <li class="ipad-screen-menu__item">
+                  <button class="ipad-screen-menu__btn ipad-screen-menu__btn--die" type="button"></button>
+                </li>
+              </ul>
+            </div>
           </div>
           <button class="home-button" type="button"></button>
       </div>
     </div>
   </div>
+  <script src="js/colorpicker.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
