@@ -78,8 +78,8 @@ function clickPalette() {
 function gridClick() {
   function getChoice() {
     let choice = null;
-    while(choice < 9 || choice > 81) {
-      choice = prompt('Enter grid size\(From 9 to 81\):', '16');
+    while(choice < 9 || choice > 64) {
+      choice = prompt('Enter grid size\(From 9 to 64\):', '16');
       if(choice == null) return null;
     }
     return +choice;
