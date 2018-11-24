@@ -36,6 +36,7 @@ function clickScreen() {
   screen.style.cursor = 'crosshair';
   const cells = [...d.querySelectorAll('.cell')];
   cells.forEach(cell => {
+    cell.addEventListener('mousedown', hoverCell);
     cell.addEventListener('mouseover', hoverCell);
   });
 }
@@ -100,9 +101,9 @@ function clickBorders() {
 function gridClick() {
   function getChoice() {
     let choice = null;
-    while(choice < 9 || choice > 64) {
-      choice = prompt('Enter grid size\(From 9 to 64\):', '16');
-      if(choice == null) return null;
+    while(choice < 8 || choice > 64) {
+      choice = prompt('Enter grid size\(From 8 to 64\):', '16');
+      if(choice === null) return null;
     }
     return +choice;
   }
@@ -139,16 +140,12 @@ window.addEventListener('click', removeColorPicker);
 // START FIRST GRID
 createGrid();
 
-setInterval(() => {
-  let mousedown = false;
-  if(!mousedown) {
-    screen.addEventListener('mousedown', clickScreen);
-    screen.addEventListener('mouseup', () => {
-      screen.removeEventListener('mousedown', clickScreen);
-      const cells = [...d.querySelectorAll('.cell')];
-      cells.forEach(cell => cell.removeEventListener('mouseover', hoverCell));
-      mousedown = true;
-      screen.style.cursor = 'default';
-    });
-  }
-}, 500);
+// START SCREEN DRAW FUNCTION
+window.addEventListener('load', () => {
+  screen.addEventListener('mousedown', clickScreen);
+  screen.addEventListener('mouseup', () => {
+    const cells = [...d.querySelectorAll('.cell')];
+    cells.forEach(cell => cell.removeEventListener('mouseover', hoverCell));
+    screen.style.cursor = 'default';
+  });
+});
