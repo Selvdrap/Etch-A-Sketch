@@ -1,6 +1,7 @@
 const d = document;
 const screen = d.querySelector('.ipad-screen__content');
 const homeButton = d.querySelector('.home-button');
+const buttons = [...d.querySelectorAll('.ipad-screen-menu__btn')];
 const menu = d.querySelector('.ipad-screen-menu');
 const grid = d.querySelector('.ipad-screen-menu__btn--grid');
 const eraser = d.querySelector('.ipad-screen-menu__btn--eraser');
@@ -30,6 +31,7 @@ function createGrid(gridSize = 16) {
   }
   screen.classList.add('created');
   cellColor = '#000';
+  palette.style.backgroundColor = 'transparent';
 }
 
 function clickScreen() {
@@ -67,6 +69,7 @@ function clear() {
 function setColor(hex) {
   cellColor = hex;
   palette.style.backgroundColor = cellColor;
+  buttons.forEach(btn => btn.classList.remove('ipad-screen-menu__btn--active'));
 }
 
 function eraseColor() {
@@ -79,6 +82,11 @@ function eraseColor() {
     eraser.backgroundColor = '#2c3e50';
     palette.style.backgroundColor = cellColor;
   }
+}
+
+function makeButtonActive() {
+  buttons.forEach(btn => btn.classList.remove('ipad-screen-menu__btn--active'));
+  this.classList.toggle('ipad-screen-menu__btn--active');
 }
 
 function clickHomeButton(e) {
@@ -96,6 +104,18 @@ function clickBorders() {
   cells.forEach(cell => {
     cell.classList.toggle('no-borders');
   });
+  makeButtonActive.call(this);
+}
+
+function clickEraser() {
+  clear();
+  eraseColor();
+  makeButtonActive.call(this);
+}
+
+function clickDie() {
+  setRandomColor();
+  makeButtonActive.call(this);
 }
 
 function gridClick() {
@@ -120,11 +140,8 @@ function removeColorPicker(e) {
 homeButton.addEventListener('click', clickHomeButton);
 palette.addEventListener('click', clickPalette);
 borders.addEventListener('click', clickBorders);
-eraser.addEventListener('click', () => {
-  clear();
-  eraseColor();
-});
-die.addEventListener('click', () => setRandomColor());
+eraser.addEventListener('click', clickEraser);
+die.addEventListener('click', clickDie);
 grid.addEventListener('click', gridClick);
 
 // COLOR PICKER
@@ -143,7 +160,7 @@ createGrid();
 // START SCREEN DRAW FUNCTION
 window.addEventListener('load', () => {
   screen.addEventListener('mousedown', clickScreen);
-  screen.addEventListener('mouseup', () => {
+  screen.addEventListener('click', () => {
     const cells = [...d.querySelectorAll('.cell')];
     cells.forEach(cell => cell.removeEventListener('mouseover', hoverCell));
     screen.style.cursor = 'default';
