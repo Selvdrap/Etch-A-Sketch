@@ -6,10 +6,12 @@ const grid = d.querySelector('.ipad-screen-menu__btn--grid');
 const eraser = d.querySelector('.ipad-screen-menu__btn--eraser');
 const palette = d.querySelector('.ipad-screen-menu__btn--palette');
 const die = d.querySelector('.ipad-screen-menu__btn--die');
+const borders = d.querySelector('.ipad-screen-menu__btn--borders');
 const colorPicker = d.querySelector('.color-picker');
 const gridRows = screen.getBoundingClientRect().height;
 const gridCols = screen.getBoundingClientRect().width;
 let cellColor = '#000';
+let cellBorderColor = '#a399b2';
 
 function createGrid(gridSize = 16) {
   clear();
@@ -23,7 +25,6 @@ function createGrid(gridSize = 16) {
       cell.classList.add('cell');
       cell.style.width = `${Math.floor(gridCols / gridSize)}px`;
       cell.style.height = `${Math.floor(gridRows / gridSize)}px`;
-      cell.addEventListener('mouseover', hoverCell);
       screen.appendChild(cell);
     }
   }
@@ -31,9 +32,16 @@ function createGrid(gridSize = 16) {
   cellColor = '#000';
 }
 
+function clickScreen() {
+  screen.style.cursor = 'crosshair';
+  const cells = [...d.querySelectorAll('.cell')];
+  cells.forEach(cell => {
+    cell.addEventListener('mouseover', hoverCell);
+  });
+}
+
 function hoverCell(e) {
-  this.style.backgroundColor = cellColor;
-  e.stopPropagation();
+  e.target.style.backgroundColor = cellColor;
 }
 
 function setRandomColor() {
@@ -52,7 +60,7 @@ function setRandomColor() {
 }
 
 function clear() {
-  clearInterval(window.colorTimer);
+  if(window.colorTimer) clearInterval(window.colorTimer);
 }
 
 function setColor(hex) {
@@ -61,8 +69,15 @@ function setColor(hex) {
 }
 
 function eraseColor() {
-  cellColor = 'transparent';
-  palette.style.backgroundColor = cellColor;
+  if(cellColor === 'transparent') {
+    cellColor = '#000';
+    eraser.backgroundColor = 'none'; 
+  }
+  else {
+    cellColor = 'transparent';
+    eraser.backgroundColor = '#2c3e50';
+    palette.style.backgroundColor = cellColor;
+  }
 }
 
 function clickHomeButton(e) {
@@ -73,6 +88,13 @@ function clickHomeButton(e) {
 function clickPalette() {
   colorPicker.classList.toggle('color-picker--visible');
   clear();
+}
+
+function clickBorders() {
+  const cells = [...d.querySelectorAll('.cell')];
+  cells.forEach(cell => {
+    cell.classList.toggle('no-borders');
+  });
 }
 
 function gridClick() {
@@ -96,6 +118,7 @@ function removeColorPicker(e) {
 
 homeButton.addEventListener('click', clickHomeButton);
 palette.addEventListener('click', clickPalette);
+borders.addEventListener('click', clickBorders);
 eraser.addEventListener('click', () => {
   clear();
   eraseColor();
@@ -103,14 +126,29 @@ eraser.addEventListener('click', () => {
 die.addEventListener('click', () => setRandomColor());
 grid.addEventListener('click', gridClick);
 
+// COLOR PICKER
+
 ColorPicker(
   colorPicker,
   function(hex, hsv, rgb) {
     setColor(hex);
   }
 );
-
 window.addEventListener('click', removeColorPicker);
 
 // START FIRST GRID
 createGrid();
+
+setInterval(() => {
+  let mousedown = false;
+  if(!mousedown) {
+    screen.addEventListener('mousedown', clickScreen);
+    screen.addEventListener('mouseup', () => {
+      screen.removeEventListener('mousedown', clickScreen);
+      const cells = [...d.querySelectorAll('.cell')];
+      cells.forEach(cell => cell.removeEventListener('mouseover', hoverCell));
+      mousedown = true;
+      screen.style.cursor = 'default';
+    });
+  }
+}, 500);

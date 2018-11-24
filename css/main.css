@@ -70,6 +70,10 @@ body {
   z-index: 1;
 }
 
+.no-borders {
+  border-color: transparent !important;
+}
+
 .camera {
   background-color: #0b2874;
   height: 8px;
@@ -147,19 +151,23 @@ body {
 }
 
 .ipad-screen-menu__btn--eraser {
-  background-image: url(../img/001-eraser.svg);
+  background-image: url(../img/eraser.svg);
 }
 
 .ipad-screen-menu__btn--palette {
-  background-image: url(../img/002-palette.svg);
+  background-image: url(../img/palette.svg);
 }
 
 .ipad-screen-menu__btn--grid {
-  background-image: url(../img/003-grid.svg);
+  background-image: url(../img/grid.svg);
 }
 
 .ipad-screen-menu__btn--die {
-  background-image: url(../img/004-die.svg);
+  background-image: url(../img/die.svg);
+}
+
+.ipad-screen-menu__btn--borders {
+  background-image: url(../img/no-border.svg);
 }
 
 .color-picker {
